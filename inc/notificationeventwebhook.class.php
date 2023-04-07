@@ -139,7 +139,8 @@ class PluginWebhookNotificationEventWebhook extends NotificationEventAbstract im
 						if (PluginWebhookNotificationEventWebhook::validateSendTo($event, $webhook_infos))
 						{
 							$key = $webhook_infos[static::getTargetFieldName()];
-							$url = $webhook_infos['additionnaloption']['address']; 
+							$url = $webhook_infos['additionnaloption']['address'];
+							$data = &$notificationtarget->getForTemplate($event, $options);
 							$url = NotificationTemplate::process($webhook_infos['additionnaloption']['address'], $data); // substitute variables in url
 							$url = str_replace(["\n", "\r", "\t"], ['', '', ''], htmlentities($url)); // translate HTML-significant characters and suppress remaining escape characters
 							if ($template_datas = $template->getByLanguage($webhook_infos['language']))
